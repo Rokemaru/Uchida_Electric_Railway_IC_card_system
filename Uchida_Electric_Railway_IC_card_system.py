@@ -1,7 +1,7 @@
 # UchicaCardクラス：ICカードのチャージ残高を管理するクラス
 class UchicaCard:
     def __init__(self):
-        # 初期チャージ残高は500円（設計書の仕様）
+        # 初期チャージ残高は500円（設計書の要求）
         self.balance = 500
 
     # 運賃を支払うための関数
@@ -19,7 +19,7 @@ class UchicaCard:
         self.balance -= fare
         print(f"精算後のチャージ残高は{self.balance}円です。")
 
-        # 精算後の残高が500円未満ならもう一度自動チャージ（仕様通り）
+        # 精算後の残高が500円未満ならもう一度自動チャージ
         if self.balance < 500:
             self.balance += 3000
             print("残高が500円未満のため3000円自動チャージします。")
@@ -64,7 +64,7 @@ class UchicaCard:
                     print("正しい数値を入力してください。")
 
             except ValueError:
-                # 数字以外が入力されたときのエラーハンドリング
+                # 数字以外が入力されたときのエラー
                 print("正しい数値を入力してください。")
 
 
