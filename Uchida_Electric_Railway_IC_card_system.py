@@ -1,3 +1,49 @@
+class UchicaCard:
+    def __init__(self):
+        self.balance = 500
+
+    def pay(self, fare: int) -> int:
+        print(f"チャージ残高は{self.balance}円です。")
+        if fare > self.balance:
+            print("残高不足です。")
+            while fare > self.balance:
+                self.balance += 3000
+                print("3000円自動チャージします。")
+        self.balance -= fare
+        print(f"精算後のチャージ残高は{self.balance}円です。")
+        if self.balance < 500:
+            self.balance += 3000
+            print("残高が500円未満のため3000円自動チャージします。")
+            print(f"チャージ残高は{self.balance}円です。")
+        return self.balance
+
+    def charge(self) -> int:
+        charges = [1000 * (i + 1) for i in range(10)]
+        while True:
+            print("\n【チャージ機能】\n")
+            print(f"チャージ残高は{self.balance}円です。\n")
+            for i in range(len(charges)):
+                print(f"{i + 1}:{charges[i]}円")
+            print(
+                "\nチャージする金額を選択してください。(キャンセルする場合には99を入力)"
+            )
+            try:
+                selection = int(input())
+                if 1 <= selection <= 10:
+                    amount = charges[selection - 1]
+                    print(f"{amount}円チャージします。")
+                    self.balance += amount
+                    print(f"チャージ残高は{self.balance}円です。")
+                    return self.balance
+                elif selection == 99:
+                    print("チャージをキャンセルしました。")
+                    return self.balance
+                else:
+                    print("正しい数値を入力してください。")
+            except ValueError:
+                print("正しい数値を入力してください。")
+
+
 def menu() -> int:
     functions = ["乗車駅選択", "チャージ機能"]
     while True:
@@ -39,57 +85,16 @@ def select_station() -> int:
             print("正しい数値を入力してください。")
 
 
-def pay(balance: int, fare: int) -> int:
-    print(f"チャージ残高は{balance}円です。")
-    if fare > balance:
-        print("残高不足です。")
-        while fare > balance:
-            balance += 3000
-            print("3000円自動チャージします。")
-    balance -= fare
-    print(f"精算後のチャージ残高は{balance}円です。")
-    if balance < 500:
-        balance += 3000
-        print("残高が500円未満のため3000円自動チャージします。")
-        print(f"チャージ残高は{balance}円です。")
-    return balance
-
-
-def charge(balance: int) -> int:
-    charges = [1000 * (i + 1) for i in range(10)]
-    while True:
-        print("\n【チャージ機能】\n")
-        print(f"チャージ残高は{balance}円です。\n")
-        for i in range(len(charges)):
-            print(f"{i + 1}:{charges[i]}円")
-        print("\nチャージする金額を選択してください。(キャンセルする場合には99を入力)")
-        try:
-            selection = int(input())
-            if 1 <= selection <= 10:
-                amount = charges[selection - 1]
-                print(f"{amount}円チャージします。")
-                balance += amount
-                print(f"チャージ残高は{balance}円です。")
-                return balance
-            elif selection == 99:
-                print("チャージをキャンセルしました。")
-                return balance
-            else:
-                print("正しい数値を入力してください。")
-        except ValueError:
-            print("正しい数値を入力してください。")
-
-
 def main():
-    balance = 500
+    card = UchicaCard()
     while True:
         choice = menu()
         if choice == 1:
             fare = select_station()
             if fare != 0:
-                balance = pay(balance, fare)
+                card.pay(fare)
         elif choice == 2:
-            balance = charge(balance)
+            card.charge()
         elif choice == 99:
             print("システムを終了します")
             break
