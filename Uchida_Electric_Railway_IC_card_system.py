@@ -1,7 +1,7 @@
-# UchicaCardクラス：ICカードのチャージ残高を管理するクラス
+# UchicaCardクラス:ICカードのチャージ残高を管理するクラス
 class UchicaCard:
     def __init__(self):
-        # 初期チャージ残高は500円（設計書の要求）
+        # 初期チャージ残高は500円
         self.balance = 500
 
     # 運賃を支払うための関数
@@ -27,7 +27,7 @@ class UchicaCard:
 
         return self.balance  # 処理後の残高を返す
 
-    # ユーザーによるチャージ処理（券売機）
+    # ユーザーによるチャージ処理
     def charge(self) -> int:
         # チャージ可能な金額リスト（1000円〜10000円まで）
         charges = [1000 * (i + 1) for i in range(10)]
@@ -129,9 +129,9 @@ def select_station() -> int:
             print("正しい数値を入力してください。")
 
 
-# メイン関数：全体の処理の流れを管理する
+# 全体の処理の流れを管理する関数
 def main():
-    card = UchicaCard()  # カード（チャージ残高管理用）を作成
+    card = UchicaCard()  # インスタンス化
 
     while True:
         choice = menu()  # 機能選択
