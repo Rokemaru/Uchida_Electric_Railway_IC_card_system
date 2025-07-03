@@ -103,7 +103,7 @@ def select_station() -> int:
 
         # 駅ごとの料金を表示
         for i in range(len(stations)):
-            print(f"{i + 1}:{stations[i]}駅から {fares[i]}円")
+            print(f"{i + 1}:{stations[i]}駅から\t{fares[i]}円")
 
         print("\n乗車した駅を入力してください（キャンセルする場合には99を入力)")
 
