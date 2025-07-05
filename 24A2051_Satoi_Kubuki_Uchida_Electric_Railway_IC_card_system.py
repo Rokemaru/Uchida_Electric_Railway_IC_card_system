@@ -6,18 +6,21 @@ class UchicaCard:
 
     # 運賃を支払うための関数
     def pay(self, fare: int) -> int:
-        print(f"チャージ残高は{self.balance}円です。")
 
         # 残高不足の場合、自動チャージを繰り返す（3000円ずつ）
         if fare > self.balance:
+            print(f"チャージ残高は{self.balance}円です。")
             print("残高不足です。")
             while fare > self.balance:
                 self.balance += 3000
                 print("3000円自動チャージします。")
-
-        # 運賃を残高から差し引く
-        self.balance -= fare
-        print(f"精算後のチャージ残高は{self.balance}円です。")
+            # 運賃を残高から差し引く
+            self.balance -= fare
+            print(f"精算後のチャージ残高は{self.balance}円です。")
+        else:
+            # 運賃を残高から差し引く
+            self.balance -= fare
+            print(f"チャージ残高は{self.balance}円です。")
 
         # 精算後の残高が500円未満ならもう一度自動チャージ
         if self.balance < 500:
@@ -31,18 +34,16 @@ class UchicaCard:
     def charge(self) -> int:
         # チャージ可能な金額リスト（1000円〜10000円まで）
         charges = [1000 * (i + 1) for i in range(10)]
+        print("\n【チャージ機能】\n")
+        print(f"チャージ残高は{self.balance}円です。\n")
+
+        # チャージ金額の選択肢を表示
+        for i in range(len(charges)):
+            print(f"{i + 1}:{charges[i]}円")
+
+        print("\nチャージする金額を選択してください。(キャンセルする場合には99を入力)")
 
         while True:
-            print("\n【チャージ機能】\n")
-            print(f"チャージ残高は{self.balance}円です。\n")
-
-            # チャージ金額の選択肢を表示
-            for i in range(len(charges)):
-                print(f"{i + 1}:{charges[i]}円")
-
-            print(
-                "\nチャージする金額を選択してください。(キャンセルする場合には99を入力)"
-            )
 
             try:
                 selection = int(input())
@@ -71,14 +72,15 @@ class UchicaCard:
 # ユーザーが使いたい機能を選ぶメニュー
 def menu() -> int:
     functions = ["乗車駅選択", "チャージ機能"]
+    print("\n【ウチダ電鉄 交通系ICカード検証システム】\n")
+
+    # メニュー選択肢を表示
+    for i in range(len(functions)):
+        print(f"{i + 1}: {functions[i]}")
+
+    print("\n使用する機能を入力してください(終了する場合には99を入力)")
+
     while True:
-        print("\n【ウチダ電鉄 交通系ICカード検証システム】\n")
-
-        # メニュー選択肢を表示
-        for i in range(len(functions)):
-            print(f"{i + 1}: {functions[i]}")
-
-        print("\n使用する機能を入力してください(終了する場合には99を入力)")
 
         try:
             choice = int(input())
@@ -97,15 +99,15 @@ def menu() -> int:
 def select_station() -> int:
     stations = ["秋葉原", "山梨", "長野"]
     fares = [133, 4128, 7990]
+    print("\n【乗車駅選択】\n")
+
+    # 駅ごとの料金を表示
+    for i in range(len(stations)):
+        print(f"{i + 1}:{stations[i]}駅から\t{fares[i]}円")
+
+    print("\n乗車した駅を入力してください（キャンセルする場合には99を入力)")
 
     while True:
-        print("\n【乗車駅選択】\n")
-
-        # 駅ごとの料金を表示
-        for i in range(len(stations)):
-            print(f"{i + 1}:{stations[i]}駅から\t{fares[i]}円")
-
-        print("\n乗車した駅を入力してください（キャンセルする場合には99を入力)")
 
         try:
             destination = int(input())
