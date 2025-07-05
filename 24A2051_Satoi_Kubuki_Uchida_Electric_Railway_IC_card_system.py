@@ -32,23 +32,20 @@ class UchicaCard:
 
     # ユーザーによるチャージ処理
     def charge(self) -> int:
-        # チャージ可能な金額リスト（1000円〜10000円まで）
+
         charges = [1000 * (i + 1) for i in range(10)]
         print("\n【チャージ機能】\n")
         print(f"チャージ残高は{self.balance}円です。\n")
 
-        # チャージ金額の選択肢を表示
         for i in range(len(charges)):
             print(f"{i + 1}:{charges[i]}円")
-
         print("\nチャージする金額を選択してください。(キャンセルする場合には99を入力)")
-
         while True:
-
             try:
+                # ここでユーザーの入力を待つ
                 selection = int(input())
 
-                # 正しい番号を入力したとき
+                # 正しい入力なら、処理をして関数を終了(return)
                 if 1 <= selection <= 10:
                     amount = charges[selection - 1]
                     print(f"{amount}円チャージします。")
@@ -56,16 +53,16 @@ class UchicaCard:
                     print(f"チャージ残高は{self.balance}円です。")
                     return self.balance
 
-                # キャンセルを選んだとき
                 elif selection == 99:
                     print("チャージをキャンセルしました。")
                     return self.balance
 
+                # 間違った入力なら、メッセージだけ表示してループを継続
                 else:
                     print("正しい数値を入力してください。")
 
             except ValueError:
-                # 数字以外が入力されたときのエラー
+                # 間違った入力なら、メッセージだけ表示してループを継続
                 print("正しい数値を入力してください。")
 
 
